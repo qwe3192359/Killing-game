@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=640px,user-scalable=no">
+    <title>task6-2</title>
+    <link type="text/css" href="css/task6-2.css" rel="stylesheet"/>
+    </head>
+
+    <body>
+        <div class="warp">
+            <div class="head">
+                <a href=""><img src="images/task6-2-1.png" /></a>
+                <p>游戏结果</p>
+                <a><img src="images/task6-2-2.png" /></a>
+            </div>
+            <div class="main-top">
+                <img src="images/task6-2-3.png" />
+            </div>
+            <div class="main-center">
+                <p>太棒了，你知道吗？在捉鬼游戏中只有20%的卧底取得游戏最终的胜利哦！</p>
+            </div>
+            <div class="main-bottom">
+                <p>本游戏共计用时0小时25分钟</p>
+                <p>杀　手0人　警察1人　平民6人</p>
+                <p>狙击手0人　医生1人</p>
+                <p>卧底词汇：爱新觉罗</p>
+                <p>水民词汇：努尔哈赤</p>
+            </div>
+            <div class="main-foot">
+                <div class="main-foot-warp">
+                    <h2>第1天</h2>
+                    <span>0小时07分</span>
+                    <p>晚上：5号被杀手杀死，5号是水民</p>
+                    <p>白天：8号被全民投票投死，8号是杀手</p>
+                </div>
+                <div class="main-foot-warp">
+                    <h2>第2天</h2>
+                    <span>0小时07分</span>
+                    <p>晚上：5号被杀手杀死，5号是水民</p>
+                    <p>白天：8号被全民投票投死，8号是杀手</p>
+                </div>
+                <div class="main-foot-warp-foot">
+                    <h1>第2天</h1>
+                    <span>0小时07分</span>
+                </div>
+            </div>
+            <div class="foot">
+                <a href="index.html" class="foot_1">再来一局</a>
+                <a href="" class="foot_2">上传并分享</a>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/jquery-2.2.3.js"></script>
+        <script type="text/javascript">
+            var jieguo = sessionStorage.jieguo;
+            var jie = JSON.parse(jieguo);
+            console.log(jieguo);
+            if(jie == "平民胜利")
+                {
+                    $(".main-top").html("<img src='images/task6-2-3-2.png' />");
+                    $(".main-center p").text("太棒了，你知道吗？在杀人游戏中只有80%的平民取得游戏最终的胜利哦！");
+                }
+            else
+                {
+                    $(".main-top").html("<img src='images/task6-2-3.png' />");
+                    $(".main-center p").text("太棒了，你知道吗？在杀人游戏中只有20%的杀手取得游戏最终的胜利哦！");
+                }
+
+        </script>
+    </body>
+
+</html>

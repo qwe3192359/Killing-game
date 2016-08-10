@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=640px,user-scalable=no">
+    <title>杀手杀人</title>
+    <link type="text/css" href="css/task6-1.css" rel="stylesheet"/>
+    
+    </head>
+
+    <body>
+        <div class="warp">
+            <div class="head">
+                <div class="head-top">
+                    <li class="head-top-1"></li>
+                    <h1>杀手杀人</h1>
+                    <li class="head-top-2"></li>
+                </div>
+                <div class="head-center">
+                    <p>杀手请睁眼，杀死要杀的人。</p>
+                    <li><audio >
+                        <source src="images/task6-1.mp3" type="audio/mpeg">
+                    </audio></li>
+                    
+                </div>
+                <div class="head-foot">
+                    <div class="b">
+                    </div>
+                    <p>点击要杀死的人</p>
+                </div>
+            </div>
+            <div class="main" id="main">
+                <!--<div class="main-content" >
+                    <div class="main-content-div">
+                        <p>水民</p>
+                        <li>1号</li>
+                    </div>
+                    <div class="c" id="c"></div>
+                </div>
+                -->
+                
+                
+            </div>
+            <div class="foot">
+            	<p>杀死</p>
+            </div>
+
+            
+        </div>
+    <script type="text/javascript" src="js/jquery-2.2.3.js"></script>
+    <script type="text/javascript">
+        var arr = sessionStorage.obj;
+        var identitys = JSON.parse(arr);        //身份数据
+        var shenfen = sessionStorage.shen;
+        var shen = JSON.parse(shenfen);         //传递杀人
+        console.log(shen);
+        console.log("杀手杀人页面："+identitys);   //控制台显示
+
+        var main = document.getElementById("main");
+        for (var i = 0; i < identitys.length; i++) {
+        main.innerHTML += "<div class='main-content' ><div class='main-content-div'><p>"+ identitys[i] +"</p><li><span  id='0'>"+ (i+1) +"</span>号</li></div><div class='c' ></div></div>";}
+            //显示所有人身份信息
+
+        $(".main-content-div p:contains(死亡)").css("background-color","#ccc");   //死亡的人变色
+        if (shen == "杀人") {                                                             //杀人进行的操作
+            $(".foot p").text("杀人");
+            $(".main-content-div").click(function () {
+                if ($(this).children("p").html() == "杀手") {
+                    alert("杀手不能杀杀手");
+                }
+                else if ($(this).children("p").html() == "死亡") {
+                    alert("已经死了");
+                }
+                else {
+                    $(".c").hide();
+                    $(".main-content-div p:contains(平民)").css("background-color", "#f5c97b");
+                    $(".main-content-div p:contains(杀手)").css("background-color", "#f5c97b");
+                    $(this).children("p").css("background-color", "#ccc");
+                    $(this).next("div").show();
+                    $("span").attr("id", "0");
+                    $(this).children("li").children("span").attr("id", "1");
+                }
+                ;
+            })
+
+            $(".foot p").click(function () {
+                        if ($(".c").is(":visible")) {
+                            var $th = $("#1").text();
+                            location.href = "decrypt.html";
+                            var arr = JSON.stringify(identitys);
+                            sessionStorage.obj = arr;
+                            sessionStorage.number = $th;
+                            console.log("死亡的人"+$th+"号");
+                        }
+                        else {
+                            alert("请先杀人")
+                        }
+                        ;
+                    }
+            )
+
+        }
+        else if(shen == "投票"){                                  //投票进行的操作
+            $(".head-top h1").text("投票");
+            $(".head-center p").text("发言讨论结束，请大家投票");
+            $(".foot p").text("投票");
+            $(".main-content-div").click(function ( ) {
+                if ($(this).children("p").html() == "死亡")
+                {alert("已经死了");}
+                else
+                {
+                    $(".c").hide();
+                    $(".main-content-div p:contains(平民)").css("background-color","#f5c97b");
+                    $(".main-content-div p:contains(杀手)").css("background-color","#f5c97b");
+                    $(this).children("p").css("background-color","#ccc");
+                    $(this).next("div").show();
+                    $(this).children("li").children("span").attr("id","1");
+                };
+            } );
+
+            $(".foot p").click(function(){
+                        if($(".c").is(":visible"))
+                        {   if($(this).children("p").html() != "死亡"){
+                            var $th = $("#1").text();
+
+                            location.href="decrypt.html";
+                            var arr = JSON.stringify(identitys);
+                            sessionStorage.obj = arr;
+                            sessionStorage.number = $th;}
+
+                        }
+                        else{alert("请先投票")};
+                    }
+            );
+        };
+
+    </script>
+    </body>
+    
+</html>

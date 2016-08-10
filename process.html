@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=640px,user-scalable=no">
+    <title>游戏过程</title>
+    <link type="text/css" href="css/index.css" rel="stylesheet"/>
+  
+    
+    </head>
+
+    <body>
+        <div class="warp">
+            <div class="head">
+                
+                <p><img class="f-left" type="submit" src="images/return.png"><span>游戏过程</span><a ><img class="f-right" src="images/x.png"></a></p>
+                
+            </div>
+            <div class="process-main-warp">
+                <h1><span class="tian">第一天</span><img  src="images/arrow.png"></h1>
+                <div class="process-main" id="process-main">
+                    <div class="process-main-left">
+                        <div class="vertical vertical-1"></div>
+                        <img src="images/moon.png">
+                        <div class="vertical vertical-2"></div>
+                        <img src="images/sun.png">
+                        <div class="vertical vertical-3"></div>
+                    </div>
+                    <div class="process-main-right">
+                        <ul>
+                            <img src="images/blue.png"><li onclick="location.href='killing.html'">杀手杀人</li>
+                            <img src="images/blue.png"><li>警察验人</li>
+                            <img src="images/blue.png"><li>狙击狙人</li>
+                            <img src="images/blue.png"><li>医生救人</li>
+                         </ul>
+                         <ul>   
+                            <img src="images/blue.png"><li>亡灵发表遗言</li>
+                            <img src="images/blue.png"><li>玩家依次发言</li>
+                            <img src="images/blue.png"><li>投票</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+
+            
+        </div>
+        <script type="text/javascript" src="js/jquery-2.2.3.js"></script>
+      <script type="text/javascript">
+    var arr = sessionStorage.obj;
+    var identitys = JSON.parse(arr);
+    console.log ("游戏过程中身份数组为："+identitys);  
+    var death = $.grep(identitys,function(value){
+        return value == "死亡";
+        });
+    console.log("死亡人数:"+ death.length);
+    var i=death.length 
+        console.log("第"+ (i/2+1) +"天");
+    $(".tian").text("第"+ (i/2+1) +"天");
+
+
+    var shenfen = "杀人";
+    var shen = JSON.stringify(shenfen);    
+    sessionStorage.shen = shen;
+    console.log(shen);
+    
+   $("h1 img").click(function(){
+
+       if($(".process-main").is(":visible"))
+       {$(".process-main").hide()}
+       else
+       {$(".process-main").show()}
+
+   })
+
+    </script>
+    </body>
+    
+</html>

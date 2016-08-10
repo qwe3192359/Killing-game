@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=640px,user-scalable=no">
+    <title>黑夜解密</title>
+    <link type="text/css" href="css/index.css" rel="stylesheet"/>
+    
+    
+    </head>
+
+    <body>
+        <div class="warp b-color">
+            <div class="head">
+                
+                <p><img class="f-left" type="submit" src="images/return.png"><span>黑夜解密</span><a ><img class="f-right" src="images/x.png"></a></p>
+                
+            </div>
+            <div class="decrypt">
+                <img src="images/cry.png"   >
+            </div>
+
+
+            <div class="decrypt-main">
+
+            </div>
+
+            <div class="foot-2">
+                <button>投票</button>
+            </div>
+
+            
+        </div>
+    <script type="text/javascript" src="js/jquery-2.2.3.js"></script>
+    <script type="text/javascript">
+        var arr = sessionStorage.obj;
+        var identitys = JSON.parse(arr);
+        var $th = sessionStorage.number;
+        var shenfen = sessionStorage.shen;
+        var shen = JSON.parse(shenfen);         //传递杀人
+        console.log("传递的信息是："+shen);
+        console.log("未改变的身份信息："+identitys);
+        console.log("死亡后的身份信息"+$th+"号");
+        if (sessionStorage.si==undefined){sessionStorage.si=""};
+        if(shen == "杀人") {
+            $(".decrypt-main").append(sessionStorage.si+"<p>" + $th + "号被杀手杀死了，其实身份是" + identitys[$th - 1] + "</p>");
+        }
+        else{
+            $(".decrypt-main").append(sessionStorage.si+"<p>" + $th + "号被投票投死了，其实身份是" + identitys[$th - 1] + "</p>");
+        };
+
+
+
+        identitys[$th-1] = "死亡";
+        console.log("杀死人后的数组："+identitys);
+
+        var sgu = $.grep(identitys,function(value){         //剩下平民的数组
+            return value == "平民";
+        });
+        var sga = $.grep(identitys,function(value){         //剩下杀手的数组
+            return value == "杀手";
+        });
+        console.log("平民的数量："+sgu);
+        console.log("杀手的数量："+sga);
+
+    if(sgu.length == 0||sga.length == 0){
+        $(".foot-2 button").text("查看游戏结果");
+    }
+    else if(shen == "杀人")
+    {$(".foot-2 button").text("投票");}
+    else
+    {$(".foot-2 button").text("下一天");};
+
+
+
+
+    if(shen == "杀人"){
+         
+        $(".foot-2 button").click(function  ()
+            {
+                if (sgu.length == 0)
+                    {location.href="result.html";
+                        var jie = "杀手胜利";
+                        var jieguo = JSON.stringify(jie);
+                        sessionStorage.jieguo = jieguo;
+                        console.log(jieguo);
+                    }
+                else if(sga.length == 0)
+                    {location.href="result.html";
+                        var jie = "平民胜利";
+                        var jieguo = JSON.stringify(jie);
+                        sessionStorage.jieguo = jieguo;
+                        console.log(jieguo);
+                    }
+                else{
+                    location.href="killing.html";
+                    var arr = JSON.stringify(identitys);
+                    sessionStorage.obj = arr;
+                    var shenfen = "投票";
+                    var shen = JSON.stringify(shenfen);
+                    sessionStorage.shen = shen;
+                    console.log(shen);
+                    var si = $(".decrypt-main").html();
+                    console.log(si);
+                    sessionStorage.si = si;
+                }
+            }
+        )
+    }
+     else{
+
+        $(".foot-2 button").click(function  () {
+            if (sgu.length == 0)
+            {location.href="result.html";
+                var jie = "杀手胜利";
+                var jieguo = JSON.stringify(jie);
+                sessionStorage.jieguo = jieguo;
+                console.log(jieguo);}
+            else if(sga.length == 0)
+            {location.href="result.html";
+                var jie = "平民胜利";
+                var jieguo = JSON.stringify(jie);
+                sessionStorage.jieguo = jieguo;
+                console.log(jieguo);}
+            else{
+                location.href="process.html";
+                var arr = JSON.stringify(identitys);
+                sessionStorage.obj = arr;
+                var si = $(".decrypt-main").html();
+                console.log(si);
+                sessionStorage.si = si;
+
+            }
+        })
+    };
+
+
+    </script>
+    </body>
+    
+</html>
